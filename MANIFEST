@@ -1,0 +1,10 @@
+Changes
+lib/Sig/PackageScoped.pm
+lib/Sig/PackageScoped/Paranoid.pm
+LICENSE
+MANIFEST
+MANIFEST.SKIP
+Makefile.PL
+README
+t/01-basic.t
+t/02-paranoid.t

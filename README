@@ -1,0 +1,10 @@
+This module allows you to do strange things with $SIG{__DIE__} and
+$SIG{__WARN__}.  It scares me.  But it has the potential to be useful
+and some people think this just can't be done so this is here to prove
+that indeed, it can be done.
+
+Basically, it lets you make these signal handlers scoped to a
+particular package.  Even better, the included
+Sig::PackageScoped::Paranoid can catch any attempts to globally set
+one of these handles and _force_ it to be package scoped, which can be
+useful.
