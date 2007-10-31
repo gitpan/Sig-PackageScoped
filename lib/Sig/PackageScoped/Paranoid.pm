@@ -5,6 +5,8 @@ use warnings;
 
 package Sig::PackageScoped::Paranoid;
 
+our $VERSION = '99';
+
 use Sig::PackageScoped;
 
 tie $SIG{__DIE__}, 'Sig::PackageScoped::Paranoid::Tie', '__DIE__';

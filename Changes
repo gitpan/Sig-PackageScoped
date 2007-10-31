@@ -1,4 +1,10 @@
-0.02  2007-10-31
+0.04  2007-10-31
+
+- One of these days I will learn how to release a module. This should
+  fix the regressing version problem for real.
+
+
+0.03  2007-10-31
 
 - I'd really like to smack myself for making module versions based on
   CVS revision numbers.

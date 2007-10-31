@@ -1,6 +1,6 @@
 ---
 name: Sig-PackageScoped
-version: 0.03
+version: 0.04
 author:
   - 'Dave Rolsky <autarch@urth.org>'
 abstract: 'Make $SIG{__DIE__} and $SIG{__WARN__} package scoped'
@@ -12,9 +12,10 @@ requires:
 provides:
   Sig::PackageScoped:
     file: lib/Sig/PackageScoped.pm
-    version: 0.03
+    version: 0.04
   Sig::PackageScoped::Paranoid:
     file: lib/Sig/PackageScoped/Paranoid.pm
+    version: 99
   Sig::PackageScoped::Paranoid::Tie:
     file: lib/Sig/PackageScoped/Paranoid.pm
     version: 99

@@ -5,7 +5,7 @@ use warnings;
 
 our @EXPORT_OK = qw(set_sig unset_sig);
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 our %HANDLERS;
 
