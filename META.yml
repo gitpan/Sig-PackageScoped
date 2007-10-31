@@ -1,6 +1,6 @@
 ---
 name: Sig-PackageScoped
-version: 0.02
+version: 0.03
 author:
   - 'Dave Rolsky <autarch@urth.org>'
 abstract: 'Make $SIG{__DIE__} and $SIG{__WARN__} package scoped'
@@ -12,12 +12,12 @@ requires:
 provides:
   Sig::PackageScoped:
     file: lib/Sig/PackageScoped.pm
-    version: 0.02
+    version: 0.03
   Sig::PackageScoped::Paranoid:
     file: lib/Sig/PackageScoped/Paranoid.pm
   Sig::PackageScoped::Paranoid::Tie:
     file: lib/Sig/PackageScoped/Paranoid.pm
-    version: 1.02
+    version: 99
 generated_by: Module::Build version 0.2808
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html

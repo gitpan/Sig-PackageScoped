@@ -13,7 +13,7 @@ tie $SIG{__WARN__}, 'Sig::PackageScoped::Paranoid::Tie', '__WARN__';
 
 package Sig::PackageScoped::Paranoid::Tie;
 
-our $VERSION = '1.02';
+our $VERSION = '99';
 
 our $SELF;
 sub TIESCALAR

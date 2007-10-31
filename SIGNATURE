@@ -15,14 +15,14 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 7af7168417ed3d21fea88cf4bf9ef2d463eb96c2 Build.PL
-SHA1 ad16e999ff18c16b6db241250a4c319a21f66946 Changes
+SHA1 e5bdf64342df0335a2a999bd257e7402a51bd2ef Changes
 SHA1 f235ba4160673bcb7c9d58c2f09dbc7fc0efadea LICENSE
 SHA1 7901141bc6328f0f0aabacab096bce256dcb09f4 MANIFEST
-SHA1 2b56e31f18e2e0d52b43a24e79560b149463d125 META.yml
+SHA1 f44f89ce365ee501e6a0af3f2ea1c25b8f689722 META.yml
 SHA1 cd14ada78fb37a0d926edd86eddcdf7f939de582 Makefile.PL
 SHA1 b6eb56dcb96f33b7aac603bfb1d56b0f2a628f21 README
-SHA1 2feed516f95980868c1d05a35d48fb9636e02b44 lib/Sig/PackageScoped.pm
-SHA1 d1447673d16739264cff1e490027fae1c6c8a47d lib/Sig/PackageScoped/Paranoid.pm
+SHA1 fef4e019e7d04d8a13c1361161798211c6d5a0f1 lib/Sig/PackageScoped.pm
+SHA1 c6367dceda1b234e5b700785cd7073b8be7c93dd lib/Sig/PackageScoped/Paranoid.pm
 SHA1 e5297b5007d2691a61f9b1af92d632ffe45f286a t/01-basic.t
 SHA1 bda008d9cbed27ebebf47ce9de2cc828cd538db6 t/02-paranoid.t
 SHA1 98c875c39bedc57bc3c52b583ddc866c6d184d0a t/perlcritic.t
@@ -31,7 +31,7 @@ SHA1 cec881e89926d320475f9de2b7fad02c2169f510 t/pod.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.6 (GNU/Linux)
 
-iD8DBQFHKLTL3Or3ZzQuifMRAnqZAJ9QIuhilSosm6XkLauFaPWqD+H5rwCgm86I
-YUSlu0tG9asFbO1wduc4j0Q=
-=Rwnu
+iD8DBQFHKLaK3Or3ZzQuifMRAm+8AJ408DSTHi/NNv3tF5QoQ+qnLzAIlACgmuqD
+HNxeUPMTmOrvS4k63LhSZg8=
+=Z/4t
 -----END PGP SIGNATURE-----
