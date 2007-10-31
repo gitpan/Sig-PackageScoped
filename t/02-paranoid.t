@@ -1,13 +1,9 @@
-BEGIN { $| = 1; print "1..11\n"; }
-END {print "not ok 1\n" unless $loaded;}
+use strict;
+use warnings;
+
+use Test::More tests => 9;
 
 use Sig::PackageScoped::Paranoid;
-
-$loaded = 1;
-
-use strict;
-
-result(1);
 
 {
     package Foo;
@@ -18,8 +14,8 @@ result(1);
     eval { die "bar\n" };
 
     chomp $@;
-    main::result( $@ eq 'Foo: bar',
-		  "\$\@ should be 'Foo: bar' but it is '$@'\n" );
+    ::is( $@, 'Foo: bar',
+          q{$@ should be 'Foo: bar'} );
 
     {
 	# dying in package Foo now prepends 'Foo2: ' to message.  This
@@ -30,8 +26,8 @@ result(1);
 	eval { die "bar\n" };
 
 	chomp $@;
-	main::result( $@ eq 'Foo2: bar',
-		      "\$\@ should be 'Foo: bar' but it is '$@'\n" );
+        ::is( $@, 'Foo2: bar',
+              q{$@ should be 'Foo: bar'} );
 
 	package Bar;
 
@@ -39,16 +35,16 @@ result(1);
 	eval { die "bar\n"; };
 
 	chomp $@;
-	main::result( $@ eq 'bar',
-		      "\$\@ should be 'bar' but it is '$@'\n" );
+        ::is( $@, 'bar',
+              q{$@ should be 'bar'} );
     }
 
     # back in package Foo with previous handler restored
     eval { die "bar\n" };
 
     chomp $@;
-    main::result( $@ eq 'Foo: bar',
-		  "\$\@ should be 'Foo: bar' but it is '$@'\n" );
+    ::is( $@, 'Foo: bar',
+          q{$@ should be 'Foo: bar'} );
 
     package Bar;
 
@@ -56,17 +52,10 @@ result(1);
     eval { die "bar\n"; };
 
     chomp $@;
-    main::result( $@ eq 'bar',
-		  "\$\@ should be 'bar' but it is '$@'\n" );
+    ::is( $@, 'bar',
+          q{$@ should be 'bar'} );
 
     package Foo;
-
-    eval { die "bar\n" };
-
-    # return to Foo just to check
-    chomp $@;
-    main::result( $@ eq 'Foo: bar',
-		  "\$\@ should be 'Foo: bar' but it is '$@'\n" );
 
     {
 	# resets package Foo entirely
@@ -75,16 +64,15 @@ result(1);
 	eval { die "bar\n" };
 
 	chomp $@;
-	main::result( $@ eq 'Foo2: bar',
-		      "\$\@ should be 'Foo: bar' but it is '$@'\n" );
+        ::is( $@, 'Foo2: bar',
+              q{$@ should be 'Foo: bar'} );
     }
 
     eval { die "bar\n"; };
 
-    # We reset foo entirely
     chomp $@;
-    main::result( $@ eq 'Foo2: bar',
-		  "\$\@ should be 'Foo2: bar' but it is '$@'\n" );
+    ::is( $@, 'Foo2: bar',
+          q{$@ should be 'Foo: bar'} );
 
     package Bar;
 
@@ -92,8 +80,8 @@ result(1);
     eval { die "bar\n"; };
 
     chomp $@;
-    main::result( $@ eq 'bar',
-		  "\$\@ should be 'bar' but it is '$@'\n" );
+    ::is( $@, 'bar',
+          q{$@ should be 'bar'} );
 
     package Foo;
 
@@ -103,17 +91,7 @@ result(1);
     eval { die "bar\n"; };
 
     chomp $@;
-    main::result( $@ eq 'bar',
-		  "\$\@ should be 'bar' but it is '$@'\n" );
+    ::is( $@, 'bar',
+          q{$@ should be 'bar' after unsetting signal handler} );
 
-}
-
-
-sub result
-{
-    my $ok = !!shift;
-    use vars qw($TESTNUM);
-    $TESTNUM++;
-    print "not "x!$ok, "ok $TESTNUM\n";
-    print @_ if !$ok;
 }

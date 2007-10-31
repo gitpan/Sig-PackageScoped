@@ -1,13 +1,9 @@
-BEGIN { $| = 1; print "1..8\n"; }
-END {print "not ok 1\n" unless $loaded;}
+use strict;
+use warnings;
+
+use Test::More tests => 4;
 
 use Sig::PackageScoped;
-
-$loaded = 1;
-
-use strict;
-
-result(1);
 
 {
     package Foo;
@@ -18,8 +14,8 @@ result(1);
     eval { die "bar\n" };
 
     chomp $@;
-    main::result( $@ eq 'Foo: bar',
-		  "\$\@ should be 'Foo: bar' but it is '$@'\n" );
+    ::is( $@, 'Foo: bar',
+          q{$@ should be 'Foo: bar'} );
 
     {
 	package Bar;
@@ -28,43 +24,16 @@ result(1);
 	eval { die "bar\n"; };
 
 	chomp $@;
-	main::result( $@ eq 'bar',
-		      "\$\@ should be 'bar' but it is '$@'\n" );
+	::is( $@, 'bar',
+              q{$@ should be 'bar'} );
     }
 
     # back in package Foo with previous handler restored
     eval { die "bar\n" };
 
     chomp $@;
-    main::result( $@ eq 'Foo: bar',
-		  "\$\@ should be 'Foo: bar' but it is '$@'\n" );
-
-    package Bar;
-
-    # in bar, no handler should be set
-    eval { die "bar\n"; };
-
-    chomp $@;
-    main::result( $@ eq 'bar',
-		  "\$\@ should be 'bar' but it is '$@'\n" );
-
-    package Foo;
-
-    eval { die "bar\n" };
-
-    # return to Foo just to check
-    chomp $@;
-    main::result( $@ eq 'Foo: bar',
-		  "\$\@ should be 'Foo: bar' but it is '$@'\n" );
-
-    package Bar;
-
-    # in bar, _still_ no handler should be set
-    eval { die "bar\n"; };
-
-    chomp $@;
-    main::result( $@ eq 'bar',
-		  "\$\@ should be 'bar' but it is '$@'\n" );
+    ::is( $@, 'Foo: bar',
+          q{$@ should be 'Foo: bar'} );
 
     package Foo;
 
@@ -74,17 +43,7 @@ result(1);
     eval { die "bar\n"; };
 
     chomp $@;
-    main::result( $@ eq 'bar',
-		  "\$\@ should be 'bar' but it is '$@'\n" );
+    ::is( $@, 'bar',
+          q{After removing signal handler $@ should be 'bar'} );
 
-}
-
-
-sub result
-{
-    my $ok = !!shift;
-    use vars qw($TESTNUM);
-    $TESTNUM++;
-    print "not "x!$ok, "ok $TESTNUM\n";
-    print @_ if !$ok;
 }

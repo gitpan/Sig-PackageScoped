@@ -1,6 +1,12 @@
-0.01
+0.02  2007-10-31
+
+- Just bringing the packaging and tests up to modern standards. I
+  don't really think any sane person should use this module.
+
+
+0.01  2001-11-22
 
 - Initial release.  This seems to work but is considered quite alpha.
-Hopefully, people will start using it and I can improve it based on
-user feedback.
+  Hopefully, people will start using it and I can improve it based on
+  user feedback.
 

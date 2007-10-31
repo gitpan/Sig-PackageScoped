@@ -1,25 +1,34 @@
-package Sig::PackageScoped::Paranoid::Tie;
+## no critic (RequireExplicitPackage, ProhibitMultiplePackages)
 
 use strict;
+use warnings;
 
-use vars qw($SELF $VERSION);
+package Sig::PackageScoped::Paranoid;
 
-$VERSION = sprintf '%2d.%02d', q$Revision: 1.2 $ =~ /(\d+)\.(\d+)/;
+use Sig::PackageScoped;
 
+tie $SIG{__DIE__}, 'Sig::PackageScoped::Paranoid::Tie', '__DIE__';
+tie $SIG{__WARN__}, 'Sig::PackageScoped::Paranoid::Tie', '__WARN__';
+
+
+package Sig::PackageScoped::Paranoid::Tie;
+
+our $VERSION = '1.02';
+
+our $SELF;
 sub TIESCALAR
 {
     my $class = shift;
-    my $word = shift;
+    my $word  = shift;
 
     $SELF = bless \$word, $class;
 
     return $SELF;
 }
 
-use vars qw($sig);
 sub FETCH
 {
-    my $self = shift;
+    my $self    = shift;
     my $package = caller(0);
 
     return ( exists $Sig::PackageScoped::HANDLERS{$package}{$$self} ?
@@ -30,25 +39,15 @@ sub FETCH
 
 sub STORE
 {
-    my $self = shift;
+    my $self    = shift;
     my $package = caller(0);
 
     Sig::PackageScoped::set_sig( package => $package,
-				 $$self => shift );
+				 $$self  => shift );
+
+    return;
 }
 
-package Sig::PackageScoped::Paranoid;
-
-use Sig::PackageScoped;
-
-BEGIN
-{
-    # This for some reason makes it work under 5.6.0.  Don't ask me!
-    $SIG{__DIE__} = sub { 1; };
-
-    tie $SIG{__DIE__}, 'Sig::PackageScoped::Paranoid::Tie', '__DIE__';
-    tie $SIG{__WARN__}, 'Sig::PackageScoped::Paranoid::Tie', '__WARN__';
-}
 
 1;
 
@@ -56,7 +55,7 @@ __END__
 
 =head1 NAME
 
-Sig::PackageScoped - All $SIG{__DIE__} and $SIG{__WARN__} assignments are restrained to a single package
+Sig::PackageScoped::Paranoid - All $SIG{__DIE__} and $SIG{__WARN__} assignments are module-scoped
 
 =head1 SYNOPSIS
 
@@ -72,8 +71,8 @@ Sig::PackageScoped - All $SIG{__DIE__} and $SIG{__WARN__} assignments are restra
 
 =head1 DESCRIPTION
 
-When something assigns to C<$SIG{__DIE__}> or C<$SIG{__WARN__}> the
-effects are now confined to the package that did the assignment.
+Whenever a handler is assigned C<$SIG{__DIE__}> or C<$SIG{__WARN__}>
+the effects are now scoped to the package that did the assignment.
 
 This module needs to be loaded B<before> any other module that assigns
 to C<$SIG{__DIE__}> or C<$SIG{__WARN__}> for this to work.
@@ -83,7 +82,8 @@ C<$SIG{__WARN__}> and B<force> it to be package-scoped.  This will
 probably break things like C<CGI::Carp> so use it with care.  OTOH,
 modules that globally set these signals deserve to be broken.
 
-The fact that this works scares me deeply.
+The fact that this works scares me deeply. It is not recommended that
+you use this code in any sort of production environment.
 
 =head1 AUTHOR
 
